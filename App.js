@@ -21,7 +21,7 @@ const Tabs = createBottomTabNavigator({
     screen: History,
     navigationOptions: {
       tabBarLabel: 'History',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />,
     },
   },
   AddEntry: {
@@ -70,7 +70,7 @@ const MainNavigator = createStackNavigator({
 },{
   headerMode: 'screen',
   mode: 'card',
-  cardStyle: { shadowColor: Platform.OS === 'ios' ? 'transparent' : 'black' },
+  /* cardStyle: { shadowColor: Platform.OS === 'ios' ? 'transparent' : 'black' }, */
   transitionConfig: () => ({
     transitionSpec: {
       duration: 400,
@@ -135,12 +135,10 @@ export default class App extends React.Component {
   render() {      
     return (
       <Provider store={createStore(reducer)}>
-
-          <View style={{flex: 1}}>
+          <View style={{flex: 1, backgroundColor: white}}>
             <StatusBar animated={true} translucent={true} backgroundColor={transparent} barStyle="dark-content" />
             <RootStack />
           </View>
-
       </Provider>
     )
   }

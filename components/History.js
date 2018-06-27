@@ -67,7 +67,7 @@ class History extends Component {
     }
 
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: white}}>
         <UdaciFitnessCalendar
           items={entries}
           renderItem={this.renderItem}
