@@ -6,20 +6,14 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import History from './components/History'
 import Test from './components/Test'
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator, SafeAreaView } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { Constants } from 'expo'
 import EntryDetail from './components/EntryDetail'
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator'
 
-
-function UdaciStatusBar ({backgroundColor, ...props}) {
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
+if(Platform.OS === 'android'){
+  SafeAreaView.setStatusBarHeight(0);
 }
 
 const Tabs = createBottomTabNavigator({
@@ -37,10 +31,7 @@ const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
   },
-}, {
-  navigationOptions: {
-    header: null
-  },
+},{
   tabBarOptions: {
     activeTintColor: purple,
     style: {
@@ -67,14 +58,19 @@ const MainNavigator = createStackNavigator({
   EntryDetail: {
     screen: EntryDetail,
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: purple,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: white,
+      },
+      headerForceInset: {
+        top: 0
       }
     },
   }
 },{
   headerMode: 'screen',
+  mode: 'modal',
+  cardStyle: { shadowColor: Platform.OS === 'ios' ? 'transparent' : 'black' },
   transitionConfig: () => ({
     transitionSpec: {
       duration: 400,
@@ -102,9 +98,11 @@ const RootStack = createStackNavigator(
   {
     headerMode: 'none',
     mode: 'card',
+    cardStyle: { shadowColor: Platform.OS === 'ios' ? 'transparent' : 'black' },
     navigationOptions: {
       gesturesEnabled: false,
     },
+
     transitionConfig: () => ({
       transitionSpec: {
         duration: 300,
@@ -134,14 +132,15 @@ const RootStack = createStackNavigator(
 
 
 export default class App extends React.Component {
-  render() {
+  render() {      
     return (
       <Provider store={createStore(reducer)}>
-        <View style={{flex: 1}}>
-          <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-          <Text>{Constants.statusBarHeight }</Text>
-          <RootStack />
-        </View>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+          <View style={{flex: 1}}>
+            <StatusBar backgroundColor={white} barStyle="dark-content" />
+            <RootStack />
+          </View>
+        </ SafeAreaView>
       </Provider>
     )
   }

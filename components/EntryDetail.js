@@ -3,11 +3,12 @@ import { View, Button, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { timeToString, getDailyReminderValue } from '../utils/helpers'
 import MetricCard from './MetricCard'
-import { white } from '../utils/helpers'
+import { white } from '../utils/colors'
 import TextButton from './TextButton'
 import { addEntry } from '../actions'
 import { removeEntry } from '../utils/api'
 import { purple } from '../utils/colors';
+import { SafeAreaView } from 'react-navigation'
 
 class EntryDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -35,20 +36,22 @@ class EntryDetail extends Component {
     const { metrics } = this.props
 
     return (
-      <View style={styles.container}>
-        <MetricCard metrics={metrics} />
-        <TextButton style={{margin: 20}} onPress={this.reset}>
-          RESET
-        </TextButton>
-        <Button
-          onPress={() => this.props.navigation.navigate(
-            'Test'
-          )}
-          title="Go to Test!"
-          color={purple}
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </View>
+      <SafeAreaView style={{flex: 1, backgroundColor: white}}>
+        <View style={styles.container}>
+          <MetricCard metrics={metrics} />
+          <TextButton style={{margin: 20}} onPress={this.reset}>
+            RESET
+          </TextButton>
+          <Button
+            onPress={() => this.props.navigation.navigate(
+              'Test'
+            )}
+            title="Go to Test!"
+            color={purple}
+            accessibilityLabel="Learn more about this purple button"
+          />
+        </View>
+      </SafeAreaView>
     )
   }
 }

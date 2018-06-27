@@ -9,6 +9,7 @@ import { white } from '../utils/colors'
 import DateHeader from './DateHeader'
 import MetricCard from './MetricCard'
 import { AppLoading} from 'expo'
+import { SafeAreaView } from 'react-navigation'
 
 class History extends Component {
   state = {
@@ -29,7 +30,7 @@ class History extends Component {
       .then(() => this.setState(() => ({ready: true})))
   }
   renderItem = ({ today, ...metrics }, formattedDate, key) => (
-    <View style={styles.item}>
+    <SafeAreaView style={styles.item}>
       {today
         ? <View>
             <DateHeader date={formattedDate}/>
@@ -45,7 +46,7 @@ class History extends Component {
           >
             <MetricCard date={formattedDate} metrics={metrics} />
           </TouchableOpacity>}
-    </View>
+    </SafeAreaView>
   )
   renderEmptyDate(formattedDate) {
     return (
