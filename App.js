@@ -69,7 +69,7 @@ const MainNavigator = createStackNavigator({
   }
 },{
   headerMode: 'screen',
-  mode: 'modal',
+  mode: 'card',
   cardStyle: { shadowColor: Platform.OS === 'ios' ? 'transparent' : 'black' },
   transitionConfig: () => ({
     transitionSpec: {
@@ -97,7 +97,7 @@ const RootStack = createStackNavigator(
   },
   {
     headerMode: 'none',
-    mode: 'card',
+    mode: 'modal',
     cardStyle: { shadowColor: Platform.OS === 'ios' ? 'transparent' : 'black' },
     navigationOptions: {
       gesturesEnabled: false,

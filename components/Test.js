@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
-import { Button, Text, StatusBar, StyleSheet, Platform} from 'react-native'
-import { white, purple } from '../utils/colors';
+import { Button, Text, StatusBar, StyleSheet, Platform, TouchableOpacity} from 'react-native'
+import { white } from '../utils/colors';
 import { SafeAreaView } from 'react-navigation'
+import { Ionicons } from '@expo/vector-icons'
 
 export default class Test extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        {/* <StatusBar
+          hidden={Platform.OS === 'android' && true}
+        /> */}
         <Text style={[styles.paragraph, { color: '#fff' }]}>
           Light Screen
         </Text>
-        <Button
-          title="Next screen"
-          onPress={() => this.props.navigation.navigate('Home')}
-          color={Platform !== 'ios' ? "blue" : "#fff"}
-        />
+        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <Ionicons name='ios-close' size={50}></Ionicons>
+        </TouchableOpacity>
       </SafeAreaView>
     )
   }
@@ -24,7 +26,7 @@ export default class Test extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: purple,
+    backgroundColor: white,
     padding: 15,
   },
 })
