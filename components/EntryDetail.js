@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
-import { View, Button, StyleSheet } from 'react-native'
+import { View, Button, StyleSheet, StatusBar, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { timeToString, getDailyReminderValue } from '../utils/helpers'
 import MetricCard from './MetricCard'
-import { white } from '../utils/colors'
+import { white, purple, transparent } from '../utils/colors'
 import TextButton from './TextButton'
 import { addEntry } from '../actions'
 import { removeEntry } from '../utils/api'
-import { purple } from '../utils/colors';
 import { SafeAreaView } from 'react-navigation'
 
 class EntryDetail extends Component {
+
+  componentDidMount(){
+    StatusBar.setBarStyle('light-content')
+    
+  }
+  componentWillUnmount(){
+    StatusBar.setBarStyle('dark-content')
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { entryId } = navigation.state.params
 

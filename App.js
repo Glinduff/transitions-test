@@ -7,15 +7,15 @@ import reducer from './reducers'
 import History from './components/History'
 import Test from './components/Test'
 import { createBottomTabNavigator, createStackNavigator, SafeAreaView } from 'react-navigation'
-import { purple, white } from './utils/colors'
+import { purple, white, transparent } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import EntryDetail from './components/EntryDetail'
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator'
 
-if(Platform.OS === 'android'){
+/* if(Platform.OS === 'android'){
   SafeAreaView.setStatusBarHeight(0);
 }
-
+ */
 const Tabs = createBottomTabNavigator({
   History: {
     screen: History,
@@ -58,13 +58,13 @@ const MainNavigator = createStackNavigator({
   EntryDetail: {
     screen: EntryDetail,
     navigationOptions: {
-      headerTintColor: purple,
+      headerTintColor: white,
       headerStyle: {
-        backgroundColor: white,
+        backgroundColor: purple,
       },
-      headerForceInset: {
-        top: 0
-      }
+      /* headerForceInset: {
+        top: Platform.OS === 'android' && StatusBar.currentHeight
+      } */
     },
   }
 },{
@@ -135,12 +135,12 @@ export default class App extends React.Component {
   render() {      
     return (
       <Provider store={createStore(reducer)}>
-        <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+
           <View style={{flex: 1}}>
-            <StatusBar backgroundColor={white} barStyle="dark-content" />
+            <StatusBar animated={true} translucent={true} backgroundColor={transparent} barStyle="dark-content" />
             <RootStack />
           </View>
-        </ SafeAreaView>
+
       </Provider>
     )
   }
